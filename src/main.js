@@ -54,9 +54,9 @@ class AppScraper {
     try {
       let result;
       if (platform === "GOOGLE_PLAY") {
-        result = await store.app({ appId: appId });
-      } else if (platform === "APP_STORE") {
         result = await gplay.app({ appId: appId });
+      } else if (platform === "APP_STORE") {
+        result = await store.app({ appId: appId });
       }
       await Actor.pushData(result);
     } catch (error) {
