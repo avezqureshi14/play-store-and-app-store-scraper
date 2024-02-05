@@ -4,38 +4,21 @@ import { Actor } from "apify";
 import { category } from "./constants/category.js";
 
 class AppScraper {
-  static async listApps({ storeType, devId, limit, priceModel, action, appId, playStoreCategory, playStorePopularity }) {
+  static async listApps({ storeType, selectedCategory, limit, priceModel }) {
+    const appStoreCategory = category[selectedCategory];
     try {
       let allApps;
-
       if (storeType === "APP_STORE") {
-        if (action === "LIST_APPS") {
-          const selectedCategory = category[playStoreCategory];
-          allApps = await store.list({
-            category: selectedCategory,
-            num: limit
-          });
-        } else if (action === "LIST_DEVELOPER_APPS") {
-          allApps = await store.developer({ devId: devId });
-        } else if (action === "GET_DETAILS") {
-          const result = await store.app({ appId: appId });
-          await Actor.pushData(result);
-          return;
-        }
+        allApps = await store.list({
+          category: appStoreCategory,
+          num: limit,
+        });
       } else if (storeType === "GOOGLE_PLAY") {
-        if (action === "LIST_APPS") {
-          allApps = await gplay.list({
-            category: playStoreCategory,
-            collection: playStorePopularity,
-            num: limit,
-          });
-        } else if (action === "GET_DETAILS") {
-          const result = await gplay.app({ appId: appId });
-          await Actor.pushData(result);
-          return;
-        }
+        allApps = await gplay.list({
+          category: selectedCategory,
+          num: limit,
+        });
       }
-
       let filteredApps = allApps;
 
       if (priceModel === "FREE") {
@@ -46,8 +29,39 @@ class AppScraper {
 
       await Actor.pushData(filteredApps.slice(0, limit));
     } catch (error) {
-      console.error(`Error fetching data from ${storeType}:`, error);
+      console.error("Error fetching data from App Store:", error);
       await Actor.pushData({ error: error.message });
+    }
+  }
+
+  static async listDeveloperApps({ storeType, devId }) {
+    if (storeType === "APP_STORE") {
+      try {
+        const apps = await store.developer({ devId: devId });
+        await Actor.pushData(apps);
+      } catch (error) {
+        console.error("Error fetching data from App Store:", error);
+        await Actor.pushData({ error: error.message });
+      }
+    } else {
+      await Actor.pushData({
+        error: "This parameter only works for App Store",
+      });
+    }
+  }
+
+  static async getAppDetails({ storeType, appId }) {
+    try {
+      let result;
+      if (storeType === "GOOGLE_PLAY") {
+        result = await store.app({ appId: appId });
+      } else if (storeType === "APP_STORE") {
+        result = await gplay.app({ appId: appId });
+      }
+      await Actor.pushData(result);
+    } catch (error) {
+      console.error("Error fetching data from App Store:", error);
+      await Actor.pushData({ error: "Internal Server Error" });
     }
   }
 }
@@ -56,12 +70,26 @@ const runActor = async () => {
   await Actor.init();
 
   const input = await Actor.getInput();
-  const { storeType, action } = input;
+  const { action } = input;
 
   try {
-    await AppScraper.listApps(input);
+    switch (action) {
+      case "LIST_APPS":
+        await AppScraper.listApps(input);
+        break;
+      case "LIST_DEVELOPER_APPS":
+        await AppScraper.listDeveloperApps(input);
+        break;
+      case "GET_DETAILS":
+        await AppScraper.getAppDetails(input);
+        break;
+      default:
+        console.error("Invalid action specified in input.");
+        await Actor.pushData({ error: "Invalid action specified." });
+        break;
+    }
   } catch (error) {
-    console.error(`Error processing input: ${error}`);
+    console.error("Error processing input:", error);
     await Actor.pushData({ error: "Internal Server Error" });
   }
 

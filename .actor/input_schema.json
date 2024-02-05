@@ -1,5 +1,5 @@
 {
-  "title": "Google Play Scraper Actor",
+  "title": "App Scraper Actor",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
@@ -32,7 +32,7 @@
       "editor": "textfield",
       "prefill": "284882218"
     },
-    "playStoreCategory": {
+    "selectedCategory": {
       "title": "Choose  Category of App for Play Store  (Works only if action choosen is  LIST_GOOGLE_PLAY_APPS)",
       "type": "string",
       "description": "Choose  Category of App for Play Store ",
@@ -53,14 +53,6 @@
         "WEATHER"
       ],
       "default": "GAME"
-    },
-    "playStorePopularity": {
-      "title": "Choose Popularity of App for Play Store  (Works only if action choosen is  LIST_GOOGLE_PLAY_APPS)",
-      "type": "string",
-      "description": "Select the Popularity of App for Play Store",
-      "editor": "select",
-      "enum": ["TOP_FREE", "TOP_PAID", "GROSSING"],
-      "default": "TOP_FREE"
     },
     "priceModel": {
       "title": "Choose pricing model of App  (Works only if action choosen is  LIST_APP_STORE_APPS or LIST_GOOGLE_PLAY_APPS)",
