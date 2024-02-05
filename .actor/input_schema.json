@@ -15,7 +15,7 @@
       "title": "Choose the Platform",
       "type": "select",
       "description": "Choose the Platform needed to be scrapped",
-      "editor": "textfield",
+      "editor": "select",
       "enum": ["GOOGLE_PLAY", "APP_STORE"],
       "default": "GOOGLE_PLAY"
     },
