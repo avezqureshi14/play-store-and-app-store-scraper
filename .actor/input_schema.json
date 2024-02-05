@@ -13,7 +13,7 @@
     },
     "platform": {
       "title": "Choose the Platform",
-      "type": "select",
+      "type": "string",
       "description": "Choose the Platform needed to be scrapped",
       "editor": "select",
       "enum": ["GOOGLE_PLAY", "APP_STORE"],
