@@ -24,7 +24,7 @@
         "editor": "textfield"
       },
     "appStoreCategory": {
-      "title": "Choose Category of for App Store  (Works only if action choosen is LIST_APP_STORE_APPS )",
+      "title": "Choose Category of App for App Store  (Works only if action choosen is LIST_APP_STORE_APPS )",
       "type": "string",
       "description": "Choose Category of for App Store",
       "editor": "select",
