@@ -1,15 +1,114 @@
 {
-    "title": "Scrape data from a web page",
+    "title": "Google Play Scraper Actor",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
-        "url": {
-            "title": "URL of the page",
-            "type": "string",
-            "description": "The URL of website you want to get the data from.",
-            "editor": "textfield",
-            "prefill": "https://www.apify.com/"
-        }
+      "action": {
+        "title": "Action to perform",
+        "type": "string",
+        "description": "Specify the action to perform, How do you want to Scrap the Data?",
+        "editor": "select",
+        "enum": [
+          "LIST_APPS",
+          "GET_APP_DETAILS"
+        ],
+        "default": "LIST_APPS"
+      },
+      "appId": {
+        "title": "ID of the app needed to be scrapped (Works only if action choosen is GET_APP_DETAILS)",
+        "type": "string",
+        "description": "Enter the ID of the app needed to be scrapped",
+        "editor": "textfield",
+        "prefill": "com.yodo1.crossyroad"
+      },
+      "category": {
+        "title": "Choose Category of App  (Works only if action choosen is LIST_APPS)",
+        "type": "string",
+        "description": "Select the category ",
+        "editor": "select",
+        "enum": [
+          "APPLICATION",
+          "ANDROID_WEAR",
+          "ART_AND_DESIGN",
+          "AUTO_AND_VEHICLES",
+          "BEAUTY",
+          "BOOKS_AND_REFERENCE",
+          "BUSINESS",
+          "COMICS",
+          "COMMUNICATION",
+          "DATING",
+          "EDUCATION",
+          "ENTERTAINMENT",
+          "EVENTS",
+          "FINANCE",
+          "FOOD_AND_DRINK",
+          "HEALTH_AND_FITNESS",
+          "HOUSE_AND_HOME",
+          "LIBRARIES_AND_DEMO",
+          "LIFESTYLE",
+          "MAPS_AND_NAVIGATION",
+          "MEDICAL",
+          "MUSIC_AND_AUDIO",
+          "NEWS_AND_MAGAZINES",
+          "PARENTING",
+          "PERSONALIZATION",
+          "PHOTOGRAPHY",
+          "PRODUCTIVITY",
+          "SHOPPING",
+          "SOCIAL",
+          "SPORTS",
+          "TOOLS",
+          "TRAVEL_AND_LOCAL",
+          "VIDEO_PLAYERS",
+          "WATCH_FACE",
+          "WEATHER",
+          "GAME",
+          "GAME_ACTION",
+          "GAME_ADVENTURE",
+          "GAME_ARCADE",
+          "GAME_BOARD",
+          "GAME_CARD",
+          "GAME_CASINO",
+          "GAME_CASUAL",
+          "GAME_EDUCATIONAL",
+          "GAME_MUSIC",
+          "GAME_PUZZLE",
+          "GAME_RACING",
+          "GAME_ROLE_PLAYING",
+          "GAME_SIMULATION",
+          "GAME_SPORTS",
+          "GAME_STRATEGY",
+          "GAME_TRIVIA",
+          "GAME_WORD",
+          "FAMILY"
+        ],
+        "default": "GAME"
+      
+      },
+      "popularity": {
+        "title": "Choose Popularity of App  (Works only if action choosen is LIST_APPS)",
+        "type": "string",
+        "description": "Select the Popularity",
+        "editor": "select",
+        "enum": ["TOP_FREE", "TOP_PAID", "GROSSING"],
+        "default": "TOP_FREE"
+      },
+      "priceModel": {
+        "title": "Choose pricing model of App  (Works only if action choosen is LIST_APPS)",
+        "type": "string",
+        "description": "Select the Pricing Model",
+        "editor": "select",
+        "enum": ["FREE", "PAID"],
+        "default": "FREE"
+      },
+      "limit": {
+        "title": "Number of results",
+        "type": "integer",
+        "description": "Enter the number of results for getAppsByCC and searchApps",
+        "editor": "number",
+        "prefill": 10
+      }
     },
-    "required": ["url"]
-}
+    "required": ["action"]
+  }
+  
