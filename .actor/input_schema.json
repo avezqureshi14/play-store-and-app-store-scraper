@@ -15,14 +15,13 @@
           "LIST_GOOGLE_PLAY_APPS",
           "GET_GOOGLE_PLAY_APP_DETAILS"
         ],
-        "default": "LIST_APPS"
+        "default": "LIST_GOOGLE_PLAY_APPS"
       },
       "appId": {
         "title": "ID of the app needed to be scrapped (Works only if action choosen is GET_APP_STORE_APP_DETAILS or GET_GOOGLE_PLAY_APP_DETAILS)",
         "type": "string",
         "description": "Enter the ID of the app needed to be scrapped",
-        "editor": "textfield",
-        "prefill": "com.yodo1.crossyroad"
+        "editor": "textfield"
       },
     "appStoreCategory": {
       "title": "Choose Category of for App Store  (Works only if action choosen is LIST_APP_STORE_APPS )",
