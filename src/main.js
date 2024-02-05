@@ -4,16 +4,16 @@ import { Actor } from "apify";
 import { category } from "./constants/category.js";
 
 class AppScraper {
-  static async listApps({ storeType, selectedCategory, limit, priceModel }) {
+  static async listApps({ platform, selectedCategory, limit, priceModel }) {
     const appStoreCategory = category[selectedCategory];
     try {
       let allApps;
-      if (storeType === "APP_STORE") {
+      if (platform === "APP_STORE") {
         allApps = await store.list({
           category: appStoreCategory,
           num: limit,
         });
-      } else if (storeType === "GOOGLE_PLAY") {
+      } else if (platform === "GOOGLE_PLAY") {
         allApps = await gplay.list({
           category: selectedCategory,
           num: limit,
@@ -34,8 +34,8 @@ class AppScraper {
     }
   }
 
-  static async listDeveloperApps({ storeType, devId }) {
-    if (storeType === "APP_STORE") {
+  static async listDeveloperApps({ platform, devId }) {
+    if (platform === "APP_STORE") {
       try {
         const apps = await store.developer({ devId: devId });
         await Actor.pushData(apps);
@@ -50,12 +50,12 @@ class AppScraper {
     }
   }
 
-  static async getAppDetails({ storeType, appId }) {
+  static async getAppDetails({ platform, appId }) {
     try {
       let result;
-      if (storeType === "GOOGLE_PLAY") {
+      if (platform === "GOOGLE_PLAY") {
         result = await store.app({ appId: appId });
-      } else if (storeType === "APP_STORE") {
+      } else if (platform === "APP_STORE") {
         result = await gplay.app({ appId: appId });
       }
       await Actor.pushData(result);

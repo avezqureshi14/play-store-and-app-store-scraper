@@ -11,13 +11,13 @@
       "enum": ["LIST_APPS", "LIST_DEVELOPER_APPS", "GET_DETAILS"],
       "default": "LIST_APPS"
     },
-    "storeType": {
+    "platform": {
       "title": "Choose the Platform",
       "type": "select",
       "description": "Choose the Platform needed to be scrapped",
       "editor": "textfield",
       "enum": ["GOOGLE_PLAY", "APP_STORE"],
-      "default": "LIST_APPS"
+      "default": "GOOGLE_PLAY"
     },
     "appId": {
       "title": "ID of the app needed to be scrapped (Works only if action choosen is GET_APP_STORE_APP_DETAILS or GET_GOOGLE_PLAY_APP_DETAILS)",
