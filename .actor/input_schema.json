@@ -103,7 +103,7 @@
       "default": "BOOKS"
     },
     "devId": {
-      "title": "Name of the developer whose app needed to be scrapped (Works only if action choosen is LIST_APP_STORE_DEVELOPER_APPS)",
+      "title": "ID of the developer whose app needed to be scrapped (Works only if action choosen is LIST_APP_STORE_DEVELOPER_APPS)",
       "type": "string",
       "description": "Name of the developer whose app needed to be scrapped",
       "editor": "textfield",
