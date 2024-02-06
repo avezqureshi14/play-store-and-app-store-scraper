@@ -1,7 +1,7 @@
 // AppScraper.js
 import Actor from 'apify';
-import getStoreInstance from './getStoreInstance';
-import { FREE, PAID } from '../constants/actionTypes';
+import getStoreInstance from './scrapers/getStoreInstance';
+import { FREE, PAID } from './constants/actionTypes';
 
 export default class AppScraper {
   static async listApps({ platform, selectedCategory, limit, priceModel }) {

@@ -1,5 +1,5 @@
 import Actor from 'apify';
-import AppScraper from './scrapers/AppScraper';
+import AppScraper from './AppScraper';
 import {
   LIST_APPS,
   LIST_DEVELOPER_APPS,
