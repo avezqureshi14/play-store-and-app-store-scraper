@@ -11,6 +11,7 @@ import {
   LIST_DEVELOPER_APPS,
   PAID,
 } from './constants/actionTypes.js';
+import { logError } from './utility/logError.js';
 
 // Interface for the app store
 class ScrapperInterface {
@@ -69,10 +70,7 @@ function getStoreInstance(platform) {
 }
 
 // Utility function for logging errors
-function logError(error) {
-  console.error('Error fetching data:', error);
-  return { error: error.message || 'Internal Server Error' };
-}
+
 
 class AppScraper {
   static async listApps({ platform, selectedCategory, limit, priceModel }) {
