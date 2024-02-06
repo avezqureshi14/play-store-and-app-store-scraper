@@ -72,11 +72,10 @@ class AppScraper {
     const storeInstance = getStoreInstance(platform);
 
     try {
-      const allApps = await storeInstance.list({
+      const allApps = await storeInstance.listApps({
         category: selectedCategory,
         num: limit,
       });
-
       let filteredApps = allApps;
 
       if (priceModel === FREE) {
