@@ -1,7 +1,7 @@
-import store from "app-store-scraper";
-import gplay from "google-play-scraper";
-import { Actor } from "apify";
-import { category } from "./constants/category.js";
+import store from 'app-store-scraper';
+import gplay from 'google-play-scraper';
+import { Actor } from 'apify';
+import { category } from './constants/category.js';
 import {
   APP_STORE,
   FREE,
@@ -10,7 +10,7 @@ import {
   LIST_APPS,
   LIST_DEVELOPER_APPS,
   PAID,
-} from "./constants/actionTypes.js";
+} from './constants/actionTypes.js';
 
 // Interface for the app store
 class ScrapperInterface {
@@ -25,16 +25,16 @@ class AppStore extends ScrapperInterface {
     const appStoreCategory = category[selectedCategory];
     return await store.list({
       category: appStoreCategory,
-      num: num,
+      num,
     });
   }
 
   async listDeveloperApps({ devId }) {
-    return await store.developer({ devId: devId });
+    return await store.developer({ devId });
   }
 
   async getAppDetails({ appId }) {
-    return await store.app({ appId: appId });
+    return await store.app({ appId });
   }
 }
 
@@ -43,28 +43,35 @@ class GooglePlayStore extends ScrapperInterface {
   async listApps({ selectedCategory, num }) {
     return await gplay.list({
       category: selectedCategory,
-      num: num,
+      num,
     });
   }
 
   async listDeveloperApps({ devId }) {
-    throw new Error("This parameter only works for App Store");
+    throw new Error('This parameter only works for App Store');
   }
 
   async getAppDetails({ appId }) {
-    return await gplay.app({ appId: appId });
+    return await gplay.app({ appId });
   }
 }
 
 // Function to get the appropriate store instance based on the platform
 function getStoreInstance(platform) {
-  if (platform === APP_STORE) {
-    return new AppStore();
-  } else if (platform === GOOGLE_PLAY) {
-    return new GooglePlayStore();
-  } else {
-    throw new Error("Invalid platform");
+  switch (platform) {
+    case APP_STORE:
+      return new AppStore();
+    case GOOGLE_PLAY:
+      return new GooglePlayStore();
+    default:
+      throw new Error('Invalid platform');
   }
+}
+
+// Utility function for logging errors
+function logError(error) {
+  console.error('Error fetching data:', error);
+  return { error: error.message || 'Internal Server Error' };
 }
 
 class AppScraper {
@@ -76,6 +83,7 @@ class AppScraper {
         category: selectedCategory,
         num: limit,
       });
+
       let filteredApps = allApps;
 
       if (priceModel === FREE) {
@@ -86,8 +94,7 @@ class AppScraper {
 
       await Actor.pushData(filteredApps.slice(0, limit));
     } catch (error) {
-      console.error("Error fetching data:", error);
-      await Actor.pushData({ error: error.message });
+      await Actor.pushData(logError(error));
     }
   }
 
@@ -98,8 +105,7 @@ class AppScraper {
       const apps = await storeInstance.listDeveloperApps({ devId });
       await Actor.pushData(apps);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      await Actor.pushData({ error: error.message });
+      await Actor.pushData(logError(error));
     }
   }
 
@@ -110,8 +116,7 @@ class AppScraper {
       const result = await storeInstance.getAppDetails({ appId });
       await Actor.pushData(result);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      await Actor.pushData({ error: "Internal Server Error" });
+      await Actor.pushData(logError(error));
     }
   }
 }
@@ -134,13 +139,11 @@ const runActor = async () => {
         await AppScraper.getAppDetails(input);
         break;
       default:
-        console.error("Invalid action specified in input.");
-        await Actor.pushData({ error: "Invalid action specified." });
+        await Actor.pushData(logError(new Error('Invalid action specified in input.')));
         break;
     }
   } catch (error) {
-    console.error("Error processing input:", error);
-    await Actor.pushData({ error: "Internal Server Error" });
+    await Actor.pushData(logError(error));
   }
 
   await Actor.exit();
