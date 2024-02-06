@@ -52,7 +52,7 @@
         "SPORTS",
         "WEATHER"
       ],
-      "default": "GAME"
+      "default": "BUSINESS"
     },
     "priceModel": {
       "title": "Choose pricing model of App  (Works only if action choosen is  LIST_APP_STORE_APPS or LIST_GOOGLE_PLAY_APPS)",
