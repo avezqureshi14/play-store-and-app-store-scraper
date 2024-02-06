@@ -1,4 +1,3 @@
-// runActor.js
 import Actor from 'apify';
 import AppScraper from './scrapers/AppScraper';
 import {
