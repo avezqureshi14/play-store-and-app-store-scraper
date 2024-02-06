@@ -1,6 +1,72 @@
+import store from "app-store-scraper";
+import gplay from "google-play-scraper";
 import { Actor } from "apify";
-import { FREE, PAID } from "./constants/actionTypes";
-import getStoreInstance from "./scrapers/getStoreInstance";
+import { category } from "./constants/category.js";
+import {
+  APP_STORE,
+  FREE,
+  GET_DETAILS,
+  GOOGLE_PLAY,
+  LIST_APPS,
+  LIST_DEVELOPER_APPS,
+  PAID,
+} from "./constants/actionTypes.js";
+
+// Interface for the app store
+class ScrapperInterface {
+  async listApps({ selectedCategory, num }) {}
+  async listDeveloperApps({ devId }) {}
+  async getAppDetails({ appId }) {}
+}
+
+// Implementation for the App Store
+class AppStore extends ScrapperInterface {
+  async listApps({ selectedCategory, num }) {
+    const appStoreCategory = category[selectedCategory];
+    return await store.list({
+      category: appStoreCategory,
+      num: num,
+    });
+  }
+
+  async listDeveloperApps({ devId }) {
+    return await store.developer({ devId: devId });
+  }
+
+  async getAppDetails({ appId }) {
+    return await store.app({ appId: appId });
+  }
+}
+
+// Implementation for Google Play
+class GooglePlayStore extends ScrapperInterface {
+  async listApps({ selectedCategory, num }) {
+    return await gplay.list({
+      category: selectedCategory,
+      num: num,
+    });
+  }
+
+  async listDeveloperApps({ devId }) {
+    throw new Error("This parameter only works for App Store");
+  }
+
+  async getAppDetails({ appId }) {
+    return await gplay.app({ appId: appId });
+  }
+}
+
+// Function to get the appropriate store instance based on the platform
+function getStoreInstance(platform) {
+  if (platform === APP_STORE) {
+    return new AppStore();
+  } else if (platform === GOOGLE_PLAY) {
+    return new GooglePlayStore();
+  } else {
+    throw new Error("Invalid platform");
+  }
+}
+
 class AppScraper {
   static async listApps({ platform, selectedCategory, limit, priceModel }) {
     const storeInstance = getStoreInstance(platform);
