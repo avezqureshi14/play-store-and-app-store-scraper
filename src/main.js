@@ -2,26 +2,18 @@ import store from 'app-store-scraper';
 import gplay from 'google-play-scraper';
 import { Actor } from 'apify';
 import { category } from './constants/category.js';
-import {
-  APP_STORE,
-  FREE,
-  GET_DETAILS,
-  GOOGLE_PLAY,
-  LIST_APPS,
-  LIST_DEVELOPER_APPS,
-  PAID,
-} from './constants/actionTypes.js';
+import { APP_STORE, FREE, GET_DETAILS, GOOGLE_PLAY, LIST_APPS, LIST_DEVELOPER_APPS, PAID } from './constants/actionTypes.js';
 import { logError } from './utility/logError.js';
 
-// Interface for the app store
-class ScrapperInterface {
+// This is Interface for Scraper
+class ScraperInterface {
   async listApps({ selectedCategory, num }) {}
   async listDeveloperApps({ devId }) {}
   async getAppDetails({ appId }) {}
 }
 
-// Implementation for the App Store
-class AppStore extends ScrapperInterface {
+// This is Implementation for the App Store
+class AppStore extends ScraperInterface {
   async listApps({ selectedCategory, num }) {
     const appStoreCategory = category[selectedCategory];
     return await store.list({
@@ -39,8 +31,8 @@ class AppStore extends ScrapperInterface {
   }
 }
 
-// Implementation for Google Play
-class GooglePlayStore extends ScrapperInterface {
+// This is Implementation for Google Play
+class GooglePlayStore extends ScraperInterface {
   async listApps({ selectedCategory, num }) {
     return await gplay.list({
       category: selectedCategory,
@@ -57,7 +49,7 @@ class GooglePlayStore extends ScrapperInterface {
   }
 }
 
-// Function to get the appropriate store instance based on the platform
+// This is Function to get the appropriate store instance based on the platform
 function getStoreInstance(platform) {
   switch (platform) {
     case APP_STORE:
@@ -69,16 +61,15 @@ function getStoreInstance(platform) {
   }
 }
 
-// Utility function for logging errors
-
-
 class AppScraper {
-  static async listApps({ platform, selectedCategory, limit, priceModel }) {
-    const storeInstance = getStoreInstance(platform);
+  constructor(storeInstance) {
+    this.storeInstance = storeInstance;
+  }
 
+  async listApps({ selectedCategory, limit, priceModel }) {
     try {
-      const allApps = await storeInstance.listApps({
-        category: selectedCategory,
+      const allApps = await this.storeInstance.listApps({
+        selectedCategory,
         num: limit,
       });
 
@@ -96,22 +87,18 @@ class AppScraper {
     }
   }
 
-  static async listDeveloperApps({ platform, devId }) {
-    const storeInstance = getStoreInstance(platform);
-
+  async listDeveloperApps({ devId }) {
     try {
-      const apps = await storeInstance.listDeveloperApps({ devId });
+      const apps = await this.storeInstance.listDeveloperApps({ devId });
       await Actor.pushData(apps);
     } catch (error) {
       await Actor.pushData(logError(error));
     }
   }
 
-  static async getAppDetails({ platform, appId }) {
-    const storeInstance = getStoreInstance(platform);
-
+  async getAppDetails({ appId }) {
     try {
-      const result = await storeInstance.getAppDetails({ appId });
+      const result = await this.storeInstance.getAppDetails({ appId });
       await Actor.pushData(result);
     } catch (error) {
       await Actor.pushData(logError(error));
@@ -120,21 +107,23 @@ class AppScraper {
 }
 
 const runActor = async () => {
-  await Actor.init();
-
-  const input = await Actor.getInput();
-  const { action } = input;
-
   try {
+    await Actor.init();
+    const input = await Actor.getInput();
+    const { action, platform } = input;
+
+    const storeInstance = getStoreInstance(platform);
+    const appScraper = new AppScraper(storeInstance);
+
     switch (action) {
       case LIST_APPS:
-        await AppScraper.listApps(input);
+        await appScraper.listApps(input);
         break;
       case LIST_DEVELOPER_APPS:
-        await AppScraper.listDeveloperApps(input);
+        await appScraper.listDeveloperApps(input);
         break;
       case GET_DETAILS:
-        await AppScraper.getAppDetails(input);
+        await appScraper.getAppDetails(input);
         break;
       default:
         await Actor.pushData(logError(new Error('Invalid action specified in input.')));
@@ -142,9 +131,9 @@ const runActor = async () => {
     }
   } catch (error) {
     await Actor.pushData(logError(error));
+  } finally {
+    await Actor.exit();
   }
-
-  await Actor.exit();
 };
 
 runActor();
