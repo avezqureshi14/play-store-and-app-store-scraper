@@ -1,53 +1,8 @@
-import store from 'app-store-scraper';
-import gplay from 'google-play-scraper';
 import { Actor } from 'apify';
-import { category } from './constants/category.js';
 import { APP_STORE, FREE, GET_DETAILS, GOOGLE_PLAY, LIST_APPS, LIST_DEVELOPER_APPS, PAID } from './constants/actionTypes.js';
 import { logError } from './utility/logError.js';
-
-// This is Interface for Scraper
-class ScraperInterface {
-  async listApps({ selectedCategory, num }) {}
-  async listDeveloperApps({ devId }) {}
-  async getAppDetails({ appId }) {}
-}
-
-// This is Implementation for the App Store
-class AppStore extends ScraperInterface {
-  async listApps({ selectedCategory, num }) {
-    const appStoreCategory = category[selectedCategory];
-    return await store.list({
-      category: appStoreCategory,
-      num,
-    });
-  }
-
-  async listDeveloperApps({ devId }) {
-    return await store.developer({ devId });
-  }
-
-  async getAppDetails({ appId }) {
-    return await store.app({ appId });
-  }
-}
-
-// This is Implementation for Google Play
-class GooglePlayStore extends ScraperInterface {
-  async listApps({ selectedCategory, num }) {
-    return await gplay.list({
-      category: selectedCategory,
-      num,
-    });
-  }
-
-  async listDeveloperApps({ devId }) {
-    throw new Error('This parameter only works for App Store');
-  }
-
-  async getAppDetails({ appId }) {
-    return await gplay.app({ appId });
-  }
-}
+import { AppStore } from './scrapers/AppStore.js';
+import { GooglePlayStore } from './scrapers/GooglePlay.js';
 
 // Factory class for creating store instances
 class ScraperFactory {
