@@ -1,7 +1,8 @@
 import store from 'app-store-scraper';
 import gplay from 'google-play-scraper';
 import { Actor } from 'apify';
-import { category } from './constants/storeCategory.js';
+import { storeCategory } from './constants/storeCategory.js';
+import { gplayCategory } from './constants/gplayCategory.js';
 import { APP_STORE, FREE, GET_DETAILS, GOOGLE_PLAY, LIST_APPS, LIST_DEVELOPER_APPS, PAID } from './constants/actionTypes.js';
 import { logError } from './utility/logError.js';
 
@@ -15,7 +16,7 @@ class ScraperInterface {
 // This is Implementation for the App Store
 class AppStore extends ScraperInterface {
   async listApps({ selectedCategory, num }) {
-    const appStoreCategory = category[selectedCategory];
+    const appStoreCategory = storeCategory[selectedCategory];
     return await store.list({
       category: appStoreCategory,
       num,
@@ -35,7 +36,7 @@ class AppStore extends ScraperInterface {
 class GooglePlayStore extends ScraperInterface {
   async listApps({ selectedCategory, num }) {
     return await gplay.list({
-      category: selectedCategory,
+      category: gplayCategory[selectedCategory],
       num,
     });
   }
