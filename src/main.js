@@ -1,7 +1,7 @@
 import store from 'app-store-scraper';
 import gplay from 'google-play-scraper';
 import { Actor } from 'apify';
-import { category } from './constants/category.js';
+import { category } from './constants/storeCategory.js';
 import { APP_STORE, FREE, GET_DETAILS, GOOGLE_PLAY, LIST_APPS, LIST_DEVELOPER_APPS, PAID } from './constants/actionTypes.js';
 import { logError } from './utility/logError.js';
 
