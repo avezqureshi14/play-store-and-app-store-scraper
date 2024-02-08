@@ -49,15 +49,17 @@ class GooglePlayStore extends ScraperInterface {
   }
 }
 
-// This is Function to get the appropriate store instance based on the platform
-function getStoreInstance(platform) {
-  switch (platform) {
-    case APP_STORE:
-      return new AppStore();
-    case GOOGLE_PLAY:
-      return new GooglePlayStore();
-    default:
-      throw new Error('Invalid platform');
+// Factory class for creating store instances
+class ScraperFactory {
+  static getScraperInstance(platform) {
+    switch (platform) {
+      case APP_STORE:
+        return new AppStore();
+      case GOOGLE_PLAY:
+        return new GooglePlayStore();
+      default:
+        throw new Error('Invalid platform');
+    }
   }
 }
 
@@ -112,7 +114,7 @@ const runActor = async () => {
     const input = await Actor.getInput();
     const { action, platform } = input;
 
-    const storeInstance = getStoreInstance(platform);
+    const storeInstance = ScraperFactory.getScraperInstance(platform);
     const appScraper = new AppScraper(storeInstance);
 
     switch (action) {
