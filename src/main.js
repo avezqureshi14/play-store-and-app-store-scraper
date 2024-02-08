@@ -8,19 +8,22 @@ import { logError } from './utility/logError.js';
 
 // This is Interface for Scraper
 class ScraperInterface {
-  async listApps({ selectedCategory, num }) {}
+  async listApps({ selectedCategory, num, priceModel }) {}
   async listDeveloperApps({ devId }) {}
   async getAppDetails({ appId }) {}
 }
 
 // This is Implementation for the App Store
 class AppStore extends ScraperInterface {
-  async listApps({ selectedCategory, num }) {
+  async listApps({ selectedCategory, num}) {
     const appStoreCategory = storeCategory[selectedCategory];
-    return await store.list({
+    const allApps = await store.list({
       category: appStoreCategory,
       num,
     });
+
+    // Filter apps based on price if needed
+    return allApps;
   }
 
   async listDeveloperApps({ devId }) {
@@ -29,6 +32,15 @@ class AppStore extends ScraperInterface {
 
   async getAppDetails({ appId }) {
     return await store.app({ appId });
+  }
+
+  filterAppsByPrice(apps, priceModel) {
+    if (priceModel === FREE) {
+      return apps.filter((app) => app.free === true);
+    } else if (priceModel === PAID) {
+      return apps.filter((app) => app.free === false);
+    }
+    return apps;
   }
 }
 
@@ -64,51 +76,6 @@ class ScraperFactory {
   }
 }
 
-class AppScraper {
-  constructor(storeInstance) {
-    this.storeInstance = storeInstance;
-  }
-
-  async listApps({ selectedCategory, limit, priceModel }) {
-    try {
-      const allApps = await this.storeInstance.listApps({
-        selectedCategory,
-        num: limit,
-      });
-
-      let filteredApps = allApps;
-
-      if (priceModel === FREE) {
-        filteredApps = filteredApps.filter((app) => app.free === true);
-      } else if (priceModel === PAID) {
-        filteredApps = filteredApps.filter((app) => app.free === false);
-      }
-
-      await Actor.pushData(filteredApps.slice(0, limit));
-    } catch (error) {
-      await Actor.pushData(logError(error));
-    }
-  }
-
-  async listDeveloperApps({ devId }) {
-    try {
-      const apps = await this.storeInstance.listDeveloperApps({ devId });
-      await Actor.pushData(apps);
-    } catch (error) {
-      await Actor.pushData(logError(error));
-    }
-  }
-
-  async getAppDetails({ appId }) {
-    try {
-      const result = await this.storeInstance.getAppDetails({ appId });
-      await Actor.pushData(result);
-    } catch (error) {
-      await Actor.pushData(logError(error));
-    }
-  }
-}
-
 const runActor = async () => {
   try {
     await Actor.init();
@@ -116,17 +83,17 @@ const runActor = async () => {
     const { action, platform } = input;
 
     const storeInstance = ScraperFactory.getScraperInstance(platform);
-    const appScraper = new AppScraper(storeInstance);
 
     switch (action) {
       case LIST_APPS:
-        await appScraper.listApps(input);
+        const apps = await storeInstance.listApps(input);
+        await Actor.pushData(apps.slice(0, input.limit));
         break;
       case LIST_DEVELOPER_APPS:
-        await appScraper.listDeveloperApps(input);
+        await Actor.pushData(await storeInstance.listDeveloperApps(input));
         break;
       case GET_DETAILS:
-        await appScraper.getAppDetails(input);
+        await Actor.pushData(await storeInstance.getAppDetails(input));
         break;
       default:
         await Actor.pushData(logError(new Error('Invalid action specified in input.')));
