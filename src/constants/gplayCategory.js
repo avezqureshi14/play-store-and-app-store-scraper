@@ -1,4 +1,4 @@
-const gplayCategory = {
+export const gplayCategory = {
     BUSINESS:"BUSINESS",
     EDUCATION:"EDUCATION",
     ENTERTAINMENT:"ENTERTAINMENT",
