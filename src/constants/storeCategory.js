@@ -1,4 +1,4 @@
-const storeCategory = {
+export const storeCategory = {
   BOOKS: 6018,
   BUSINESS: 6000,
   CATALOGS: 6022,
