@@ -71,7 +71,6 @@ class GooglePlayStore extends ScraperInterface {
       category: playStoreCategory,
       collection: playStoreCollection,
       country: playStoreCountry,
-      num
     });
     
     return allApps;
