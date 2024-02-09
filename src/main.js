@@ -16,7 +16,7 @@ import { countries } from "./constants/countries.js";
 
 // This is Interface for Scraper
 class ScraperInterface {
-  async listApps({ selectedCollection, selectedCategory, num }) {}
+  async listApps({ selectedCollection, selectedCategory, num,selectedCountry }) {}
   async listDeveloperApps({ devId }) {}
   async getAppDetails({ appId }) {}
 }
