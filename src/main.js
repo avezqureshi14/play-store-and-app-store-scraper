@@ -70,7 +70,7 @@ class GooglePlayStore extends ScraperInterface {
     const allApps = gplay.list({
       category: playStoreCategory,
       collection: playStoreCollection,
-      num: num
+      num: 2
     });
 
     return allApps;
