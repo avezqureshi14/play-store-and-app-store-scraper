@@ -64,8 +64,8 @@ class GooglePlayStore extends ScraperInterface {
     const playStoreCountry = countries[selectedCountry];
 
     const allApps = gplay.list({
-      category: gplay.category.GAME_ACTION,
-      collection: gplay.collection.TOP_FREE,
+      category: selectedCategory,
+      collection: selectedCollection,
       num: 2
     });
 
