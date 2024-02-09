@@ -61,6 +61,8 @@ class GooglePlayStore extends ScraperInterface {
     num,
     selectedCountry,
   }) {
+    console.log(selectedCollection);
+    console.log(selectedCountry);
     const playStoreCategory = gplayCategory[selectedCategory];
     const playStoreCollection = selectedCollection;
     const playStoreCountry = countries[selectedCountry];
