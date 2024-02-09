@@ -34,8 +34,7 @@ class AppStore extends ScraperInterface {
     const appStoreCountry = countries[selectedCountry];
     const allApps = await store.list({
       category: appStoreCategory,
-      collection: appStoreCollection,
-      country: appStoreCountry,
+      collection: appStoreCollection, 
       num,
     });
 
