@@ -63,7 +63,7 @@ class GooglePlayStore extends ScraperInterface {
     const playStoreCountry = countries[selectedCountry];
 
     return await gplay.list({
-      category: gplayCategory[selectedCategory],
+      category: "GAME",
       collection: "TOP_FREE",
       num,
     });
