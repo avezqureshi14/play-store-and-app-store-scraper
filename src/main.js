@@ -3,10 +3,16 @@ import gplay from "google-play-scraper";
 import { Actor } from "apify";
 import { storeCategory } from "./constants/storeCategory.js";
 import { gplayCategory } from "./constants/gplayCategory.js";
-import { APP_STORE, GET_DETAILS, GOOGLE_PLAY, LIST_APPS, LIST_DEVELOPER_APPS,
+import {
+  APP_STORE,
+  GET_DETAILS,
+  GOOGLE_PLAY,
+  LIST_APPS,
+  LIST_DEVELOPER_APPS,
 } from "./constants/actionTypes.js";
 import { logError } from "./utility/logError.js";
 import { storeCollection } from "./constants/storeCollection.js";
+import { countries } from "./constants/countries.js";
 
 // This is Interface for Scraper
 class ScraperInterface {
@@ -17,12 +23,19 @@ class ScraperInterface {
 
 // This is Implementation for the App Store
 class AppStore extends ScraperInterface {
-  async listApps({ selectedCollection, selectedCategory, num }) {
+  async listApps({
+    selectedCollection,
+    selectedCategory,
+    num,
+    selectedCountry,
+  }) {
     const appStoreCategory = storeCategory[selectedCategory];
     const appStoreCollection = storeCollection[selectedCollection];
+    const appStoreCountry = countries[selectedCountry];
     const allApps = await store.list({
       category: appStoreCategory,
       collection: appStoreCollection,
+      country: appStoreCountry,
       num,
     });
 
@@ -41,10 +54,18 @@ class AppStore extends ScraperInterface {
 
 // This is Implementation for Google Play
 class GooglePlayStore extends ScraperInterface {
-  async listApps({ selectedCollection, selectedCategory, num }) {
+  async listApps({
+    selectedCollection,
+    selectedCategory,
+    num,
+    selectedCountry,
+  }) {
+    const playStoreCountry = countries[selectedCountry];
+
     return await gplay.list({
       category: gplayCategory[selectedCategory],
       collection: selectedCollection,
+      country: playStoreCountry,
       num,
     });
   }
