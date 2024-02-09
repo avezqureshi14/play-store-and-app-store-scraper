@@ -63,7 +63,7 @@ class GooglePlayStore extends ScraperInterface {
 
     return await gplay.list({
       category: gplayCategory[selectedCategory],
-      collection: "TOP_FREE",
+      collection: gplay.collection.TOP_FREE,
       num,
     });
   }
