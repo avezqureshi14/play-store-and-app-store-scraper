@@ -13,6 +13,7 @@ import {
 import { logError } from "./utility/logError.js";
 import { storeCollection } from "./constants/storeCollection.js";
 import { countries } from "./constants/countries.js";
+import { all } from "axios";
 
 // This is Interface for Scraper
 class ScraperInterface {
@@ -62,11 +63,13 @@ class GooglePlayStore extends ScraperInterface {
   }) {
     const playStoreCountry = countries[selectedCountry];
 
-    return await gplay.list({
+    const allApps = await gplay.list({
       category: "GAME",
       collection: "TOP_FREE",
       num,
     });
+
+    return allApps;
   }
 
   async listDeveloperApps({ devId }) {
