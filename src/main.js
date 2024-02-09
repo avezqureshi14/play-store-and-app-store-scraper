@@ -65,7 +65,7 @@ class GooglePlayStore extends ScraperInterface {
     return await gplay.list({
       category: gplayCategory[selectedCategory],
       collection: selectedCollection,
-      country: playStoreCountry,
+      country: "in",
       num,
     });
   }
