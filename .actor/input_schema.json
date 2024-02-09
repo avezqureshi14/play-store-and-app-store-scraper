@@ -33,9 +33,9 @@
       "prefill": "284882218"
     },
     "selectedCategory": {
-      "title": "Choose  Category of App for Play Store  (Works only if action choosen is  LIST_GOOGLE_PLAY_APPS)",
+      "title": "Choose Category of App (Works only if action choosen is  LIST_APPS)",
       "type": "string",
-      "description": "Choose  Category of App for Play Store ",
+      "description": "Choose  Category of App  ",
       "editor": "select",
       "enum": [
         "BUSINESS",
@@ -71,13 +71,13 @@
       ],
       "default": "BUSINESS"
     },
-    "priceModel": {
-      "title": "Choose pricing model of App  (Works only if action choosen is  LIST_APP_STORE_APPS or LIST_GOOGLE_PLAY_APPS)",
+    "selectedCollection": {
+      "title": "Choose Collection of App  (Works only if action choosen is  LIST_APPS)",
       "type": "string",
-      "description": "Select the Pricing Model",
+      "description": "Choose  Collection of App ",
       "editor": "select",
-      "enum": ["FREE", "PAID"],
-      "default": "FREE"
+      "enum": ["TOP_FREE", "TOP_PAID"],
+      "default": "TOP_FREE"
     },
     "limit": {
       "title": "Number of results",
