@@ -39,7 +39,7 @@ class AppStore extends ScraperInterface {
       collection: appStoreCollection, 
       country:appStoreCountry,
       num,
-      sort:store.sort.HELPFUL
+      sort:store.sort.RECENT
     });
 
     // Filter apps based on price if needed
