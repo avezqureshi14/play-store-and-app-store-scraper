@@ -64,16 +64,16 @@ class GooglePlayStore extends ScraperInterface {
     const playStoreCategory = gplayCategory[selectedCategory];
     const playStoreCollection = selectedCollection;
     const playStoreCountry = countries[selectedCountry];
-    console.log(playStoreCategory)
-    console.log(playStoreCollection)
-    console.log(playStoreCountry)
     const allApps = gplay.list({
       category: playStoreCategory,
       collection: playStoreCollection,
       country: playStoreCountry,
     });
     
-    return allApps;
+    // Limit the number of apps returned based on the 'num' parameter
+    const limitedApps = allApps.slice(0, num);
+
+    return limitedApps;
   }
 
   async listDeveloperApps({ devId }) {
