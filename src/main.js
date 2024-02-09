@@ -73,7 +73,7 @@ class GooglePlayStore extends ScraperInterface {
       country:playStoreCountry
     });
 
-    return allApps.slice(0,num);
+    return allApps?.slice(0,num);
   }
 
   async listDeveloperApps({ devId }) {
