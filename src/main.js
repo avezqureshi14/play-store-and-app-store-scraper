@@ -63,10 +63,10 @@ class GooglePlayStore extends ScraperInterface {
   }) {
     const playStoreCountry = countries[selectedCountry];
 
-    const allApps = await gplay.list({
-      category: "GAME",
-      collection: "TOP_FREE",
-      num,
+    const allApps = gplay.list({
+      category: gplay.category.GAME_ACTION,
+      collection: gplay.collection.TOP_FREE,
+      num: 2
     });
 
     return allApps;
@@ -100,7 +100,6 @@ const runActor = async () => {
     await Actor.init();
     const input = await Actor.getInput();
     const { action, platform } = input;
-
     const storeInstance = ScraperFactory.getScraperInstance(platform);
 
     switch (action) {
