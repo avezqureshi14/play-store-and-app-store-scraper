@@ -70,10 +70,7 @@ class GooglePlayStore extends ScraperInterface {
       country: playStoreCountry,
     });
     
-    // Limit the number of apps returned based on the 'num' parameter
-    const limitedApps = allApps.slice(0, num);
-
-    return limitedApps;
+    return allApps;
   }
 
   async listDeveloperApps({ devId }) {
