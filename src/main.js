@@ -70,10 +70,10 @@ class GooglePlayStore extends ScraperInterface {
     const allApps = gplay.list({
       category: playStoreCategory,
       collection: playStoreCollection,
-      country:playStoreCountry
+      country: playStoreCountry
     });
-
-    return allApps?.slice(0,num);
+    
+    return allApps ? allApps.slice(0, num) : [];
   }
 
   async listDeveloperApps({ devId }) {
