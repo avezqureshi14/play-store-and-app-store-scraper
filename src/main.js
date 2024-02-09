@@ -8,7 +8,7 @@ import { logError } from './utility/logError.js';
 
 // This is Interface for Scraper
 class ScraperInterface {
-  async listApps({ selectedCategory, num}) {}
+  async listApps({ selectedCategory, num, priceModel }) {}
   async listDeveloperApps({ devId }) {}
   async getAppDetails({ appId }) {}
 }
@@ -33,7 +33,15 @@ class AppStore extends ScraperInterface {
   async getAppDetails({ appId }) {
     return await store.app({ appId });
   }
- 
+
+  filterAppsByPrice(apps, priceModel) {
+    if (priceModel === FREE) {
+      return apps.filter((app) => app.free === true);
+    } else if (priceModel === PAID) {
+      return apps.filter((app) => app.free === false);
+    }
+    return apps;
+  }
 }
 
 // This is Implementation for Google Play

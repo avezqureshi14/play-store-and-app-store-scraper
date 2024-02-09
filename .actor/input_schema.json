@@ -20,22 +20,22 @@
       "default": "GOOGLE_PLAY"
     },
     "appId": {
-      "title": "ID of the app needed to be scrapped (Works only if action choosen is GET_DETAILS)",
+      "title": "ID of the app needed to be scrapped (Works only if action choosen is GET_APP_STORE_APP_DETAILS or GET_GOOGLE_PLAY_APP_DETAILS)",
       "type": "string",
       "description": "Enter the ID of the app needed to be scrapped",
       "editor": "textfield"
     },
     "devId": {
-      "title": "ID of the developer whose app needed to be scrapped (Works only if action choosen is LIST_DEVELOPER_APPS)",
+      "title": "ID of the developer whose app needed to be scrapped (Works only if action choosen is LIST_APP_STORE_DEVELOPER_APPS)",
       "type": "string",
       "description": "Name of the developer whose app needed to be scrapped",
       "editor": "textfield",
       "prefill": "284882218"
     },
     "selectedCategory": {
-      "title": "Choose Category of App (Works only if action choosen is  LIST_APPS)",
+      "title": "Choose  Category of App for Play Store  (Works only if action choosen is  LIST_GOOGLE_PLAY_APPS)",
       "type": "string",
-      "description": "Choose  Category of App  ",
+      "description": "Choose  Category of App for Play Store ",
       "editor": "select",
       "enum": [
         "BUSINESS",
@@ -71,13 +71,13 @@
       ],
       "default": "BUSINESS"
     },
-    "selectedCollection": {
-      "title": "Choose Collection of App  (Works only if action choosen is  LIST_APPS)",
+    "priceModel": {
+      "title": "Choose pricing model of App  (Works only if action choosen is  LIST_APP_STORE_APPS or LIST_GOOGLE_PLAY_APPS)",
       "type": "string",
-      "description": "Choose  Collection of App ",
+      "description": "Select the Pricing Model",
       "editor": "select",
-      "enum": ["TOP_FREE", "TOP_PAID"],
-      "default": "TOP_FREE"
+      "enum": ["FREE", "PAID"],
+      "default": "FREE"
     },
     "limit": {
       "title": "Number of results",
