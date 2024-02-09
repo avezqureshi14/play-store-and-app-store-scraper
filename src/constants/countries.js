@@ -68,7 +68,7 @@ export const countries = {
   Grenada: "GD",
   Guatemala: "GT",
   Guinea: "GN",
-  Guinea: "GW",
+  Guinea_Bissau: "GW",
   Guyana: "GY",
   Haiti: "HT",
   Honduras: "HN",
