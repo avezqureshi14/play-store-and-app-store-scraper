@@ -61,13 +61,14 @@ class GooglePlayStore extends ScraperInterface {
     num,
     selectedCountry,
   }) {
+    const playStoreCategory = storeCategory[selectedCategory];
+    const playStoreCollection = storeCollection[selectedCollection];
     const playStoreCountry = countries[selectedCountry];
-
     const allApps = gplay.list({
-      category: selectedCategory,
-      collection: selectedCollection,
+      category: playStoreCategory,
+      collection: playStoreCollection,
       country:playStoreCountry,
-      num: 2
+      num: num
     });
 
     return allApps;
