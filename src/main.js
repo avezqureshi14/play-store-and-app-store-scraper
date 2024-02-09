@@ -1,33 +1,45 @@
-import store from 'app-store-scraper';
-import gplay from 'google-play-scraper';
-import { Actor } from 'apify';
-import { category } from './constants/category.js';
+import store from "app-store-scraper";
+import gplay from "google-play-scraper";
+import { Actor } from "apify";
+import { storeCategory } from "./constants/storeCategory.js";
+import { gplayCategory } from "./constants/gplayCategory.js";
 import {
   APP_STORE,
-  FREE,
   GET_DETAILS,
   GOOGLE_PLAY,
   LIST_APPS,
   LIST_DEVELOPER_APPS,
-  PAID,
-} from './constants/actionTypes.js';
-import { logError } from './utility/logError.js';
+} from "./constants/actionTypes.js";
+import { logError } from "./utility/logError.js";
+import { storeCollection } from "./constants/storeCollection.js";
+import { countries } from "./constants/countries.js";
 
-// Interface for the app store
-class ScrapperInterface {
-  async listApps({ selectedCategory, num }) {}
+// This is Interface for Scraper
+class ScraperInterface {
+  async listApps({ selectedCollection, selectedCategory, num,selectedCountry }) {}
   async listDeveloperApps({ devId }) {}
   async getAppDetails({ appId }) {}
 }
 
-// Implementation for the App Store
-class AppStore extends ScrapperInterface {
-  async listApps({ selectedCategory, num }) {
-    const appStoreCategory = category[selectedCategory];
-    return await store.list({
+// This is Implementation for the App Store
+class AppStore extends ScraperInterface {
+  async listApps({
+    selectedCollection,
+    selectedCategory,
+    num,
+    selectedCountry,
+  }) {
+    const appStoreCategory = storeCategory[selectedCategory];
+    const appStoreCollection = storeCollection[selectedCollection];
+    const appStoreCountry = countries[selectedCountry];
+    const allApps = await store.list({
       category: appStoreCategory,
+      collection: appStoreCollection, 
       num,
     });
+
+    // Filter apps based on price if needed
+    return allApps;
   }
 
   async listDeveloperApps({ devId }) {
@@ -39,17 +51,25 @@ class AppStore extends ScrapperInterface {
   }
 }
 
-// Implementation for Google Play
-class GooglePlayStore extends ScrapperInterface {
-  async listApps({ selectedCategory, num }) {
+// This is Implementation for Google Play
+class GooglePlayStore extends ScraperInterface {
+  async listApps({
+    selectedCollection,
+    selectedCategory,
+    num,
+    selectedCountry,
+  }) {
+    const playStoreCountry = countries[selectedCountry];
+
     return await gplay.list({
-      category: selectedCategory,
+      category: gplayCategory[selectedCategory],
+      collection: "TOP_FREE",
       num,
     });
   }
 
   async listDeveloperApps({ devId }) {
-    throw new Error('This parameter only works for App Store');
+    throw new Error("This parameter only works for App Store");
   }
 
   async getAppDetails({ appId }) {
@@ -57,94 +77,50 @@ class GooglePlayStore extends ScrapperInterface {
   }
 }
 
-// Function to get the appropriate store instance based on the platform
-function getStoreInstance(platform) {
-  switch (platform) {
-    case APP_STORE:
-      return new AppStore();
-    case GOOGLE_PLAY:
-      return new GooglePlayStore();
-    default:
-      throw new Error('Invalid platform');
-  }
-}
-
-// Utility function for logging errors
-
-
-class AppScraper {
-  static async listApps({ platform, selectedCategory, limit, priceModel }) {
-    const storeInstance = getStoreInstance(platform);
-
-    try {
-      const allApps = await storeInstance.listApps({
-        category: selectedCategory,
-        num: limit,
-      });
-
-      let filteredApps = allApps;
-
-      if (priceModel === FREE) {
-        filteredApps = filteredApps.filter((app) => app.free === true);
-      } else if (priceModel === PAID) {
-        filteredApps = filteredApps.filter((app) => app.free === false);
-      }
-
-      await Actor.pushData(filteredApps.slice(0, limit));
-    } catch (error) {
-      await Actor.pushData(logError(error));
-    }
-  }
-
-  static async listDeveloperApps({ platform, devId }) {
-    const storeInstance = getStoreInstance(platform);
-
-    try {
-      const apps = await storeInstance.listDeveloperApps({ devId });
-      await Actor.pushData(apps);
-    } catch (error) {
-      await Actor.pushData(logError(error));
-    }
-  }
-
-  static async getAppDetails({ platform, appId }) {
-    const storeInstance = getStoreInstance(platform);
-
-    try {
-      const result = await storeInstance.getAppDetails({ appId });
-      await Actor.pushData(result);
-    } catch (error) {
-      await Actor.pushData(logError(error));
+// Factory class for creating store instances
+class ScraperFactory {
+  static getScraperInstance(platform) {
+    switch (platform) {
+      case APP_STORE:
+        return new AppStore();
+      case GOOGLE_PLAY:
+        return new GooglePlayStore();
+      default:
+        throw new Error("Invalid platform");
     }
   }
 }
 
 const runActor = async () => {
-  await Actor.init();
-
-  const input = await Actor.getInput();
-  const { action } = input;
-
   try {
+    await Actor.init();
+    const input = await Actor.getInput();
+    const { action, platform } = input;
+
+    const storeInstance = ScraperFactory.getScraperInstance(platform);
+
     switch (action) {
       case LIST_APPS:
-        await AppScraper.listApps(input);
+        const apps = await storeInstance.listApps(input);
+        await Actor.pushData(apps.slice(0, input.limit));
         break;
       case LIST_DEVELOPER_APPS:
-        await AppScraper.listDeveloperApps(input);
+        await Actor.pushData(await storeInstance.listDeveloperApps(input));
         break;
       case GET_DETAILS:
-        await AppScraper.getAppDetails(input);
+        await Actor.pushData(await storeInstance.getAppDetails(input));
         break;
       default:
-        await Actor.pushData(logError(new Error('Invalid action specified in input.')));
+        await Actor.pushData(
+          logError(new Error("Invalid action specified in input."))
+        );
         break;
     }
   } catch (error) {
     await Actor.pushData(logError(error));
+  } finally {
+    await Actor.exit();
   }
-
-  await Actor.exit();
 };
 
 runActor();
