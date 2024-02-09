@@ -29,6 +29,7 @@ class AppStore extends ScraperInterface {
     selectedCategory,
     num,
     selectedCountry,
+    
   }) {
     const appStoreCategory = storeCategory[selectedCategory];
     const appStoreCollection = storeCollection[selectedCollection];
@@ -38,6 +39,7 @@ class AppStore extends ScraperInterface {
       collection: appStoreCollection, 
       country:appStoreCountry,
       num,
+      sort:store.sort.HELPFUL
     });
 
     // Filter apps based on price if needed
