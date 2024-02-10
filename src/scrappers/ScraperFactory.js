@@ -1,6 +1,6 @@
-import { APP_STORE, GOOGLE_PLAY } from "../constants/actionTypes";
-import { AppStore } from "./AppStoreScraper";
-import { GooglePlayStore } from "./GooglePlayStoreScraper";
+import { APP_STORE, GOOGLE_PLAY } from "../constants/actionTypes.js";
+import { AppStore } from "./AppStoreScraper.js";
+import { GooglePlayStore } from "./GooglePlayStoreScraper.js";
 export class ScraperFactory {
   static getScraperInstance(platform) {
     switch (platform) {
