@@ -1,5 +1,5 @@
 export class ScraperInterface {
-    async listApps({ selectedCollection, selectedCategory, num,selectedCountry }) {}
+    async listApps({ selectedCollection, selectedCategory, num,selectedCountry,selectedSort }) {}
     async listDeveloperApps({ devId }) {}
     async getAppDetails({ appId }) {}
   }

@@ -16,12 +16,12 @@ export class AppStore extends ScraperInterface {
       const appStoreCategory = storeCategory[selectedCategory];
       const appStoreCollection = storeCollection[selectedCollection];
       const appStoreCountry = countries[selectedCountry];
-      const appStoreSort = appStoreSort[selectedSort];
+      const sort = appStoreSort[selectedSort];
       const allApps = await store.list({
         category: appStoreCategory,
         collection: appStoreCollection, 
         country:appStoreCountry,
-        sort:  appStoreSort,
+        sort:  sort,
         num,
       });
   
