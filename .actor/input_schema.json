@@ -290,7 +290,7 @@
       "description": "Sort",
       "editor": "select",
       "enum": ["RECENT", "HELPFUL"],
-      "default": "TOP_FREE"
+      "default": "RECENT"
     },
     "limit": {
       "title": "Number of results",
