@@ -1,23 +1,7 @@
-import gplay from "google-play-scraper";
 import { Actor } from "apify";
-import { APP_STORE, GET_DETAILS, GOOGLE_PLAY, LIST_APPS, LIST_DEVELOPER_APPS} from "./constants/actionTypes.js";
+import { GET_DETAILS,  LIST_APPS, LIST_DEVELOPER_APPS} from "./constants/actionTypes.js";
 import { logError } from "./utility/logError.js";
-import { AppStore } from "./scrappers/AppStoreScraper.js";
-import { GooglePlayStore } from "./scrappers/GooglePlayStoreScraper.js";
-
-// Factory class for creating store instances
-class ScraperFactory {
-  static getScraperInstance(platform) {
-    switch (platform) {
-      case APP_STORE:
-        return new AppStore();
-      case GOOGLE_PLAY:
-        return new GooglePlayStore();
-      default:
-        throw new Error("Invalid platform");
-    }
-  }
-}
+import { ScraperFactory } from "./scrappers/ScraperFactory.js";
 
 const runActor = async () => {
   try {
