@@ -13,40 +13,8 @@ import {
 import { logError } from "./utility/logError.js";
 import { storeCollection } from "./constants/storeCollection.js";
 import { countries } from "./constants/countries.js";
-import { all } from "axios";
 import { ScraperInterface } from "./scraperInterface.js";
-
-// This is Implementation for the App Store
-class AppStore extends ScraperInterface {
-  async listApps({
-    selectedCollection,
-    selectedCategory,
-    num,
-    selectedCountry,
-    
-  }) {
-    const appStoreCategory = storeCategory[selectedCategory];
-    const appStoreCollection = storeCollection[selectedCollection];
-    const appStoreCountry = countries[selectedCountry];
-    const allApps = await store.list({
-      category: appStoreCategory,
-      collection: appStoreCollection, 
-      country:appStoreCountry,
-      num,
-    });
-
-    // Filter apps based on price if needed
-    return allApps;
-  }
-
-  async listDeveloperApps({ devId }) {
-    return await store.developer({ devId });
-  }
-
-  async getAppDetails({ appId }) {
-    return await store.app({ appId });
-  }
-}
+import { AppStore } from "./AppStoreScraper.js";
 
 // This is Implementation for Google Play
 class GooglePlayStore extends ScraperInterface {
