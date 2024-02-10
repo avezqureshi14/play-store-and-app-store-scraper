@@ -1,6 +1,7 @@
 import { ScraperInterface } from "./scraperInterface.js";
 import { storeCategory } from "./constants/storeCategory.js";
 import { storeCollection } from "./constants/storeCollection.js";
+import { countries } from "./constants/countries.js";
 import store from "app-store-scraper";
 
 export class AppStore extends ScraperInterface {
