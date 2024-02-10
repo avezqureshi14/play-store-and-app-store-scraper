@@ -79,6 +79,7 @@
       "enum": ["TOP_FREE", "TOP_PAID"],
       "default": "TOP_FREE"
     },
+
     "selectedCountry": {
       "title": "Choose Country  (Works only if action choosen is  LIST_APPS)",
       "type": "string",
@@ -282,6 +283,14 @@
         "Zimbabwe"
       ],
       "default": "United_States"
+    },
+    "sort": {
+      "title": "Sort Apps (Works only if action choosen is  LIST_APPS)",
+      "type": "string",
+      "description": "Sort",
+      "editor": "select",
+      "enum": ["RECENT", "HELPFUL"],
+      "default": "TOP_FREE"
     },
     "limit": {
       "title": "Number of results",
