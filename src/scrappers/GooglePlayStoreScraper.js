@@ -7,7 +7,6 @@ export class GooglePlayStore extends ScraperInterface {
     async listApps({
       selectedCollection,
       selectedCategory,
-      num,
       selectedCountry,
     }) {
       const playStoreCategory = gplayCategory[selectedCategory];

@@ -19,6 +19,7 @@ export class AppStore extends ScraperInterface {
         category: appStoreCategory,
         collection: appStoreCollection, 
         country:appStoreCountry,
+        sort:store.sort.HELPFUL,
         num,
       });
   
