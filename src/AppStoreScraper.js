@@ -1,3 +1,6 @@
+import { ScraperInterface } from "./scraperInterface";
+
+ScraperInterface
 export class AppStore extends ScraperInterface {
     async listApps({
       selectedCollection,
