@@ -1,6 +1,8 @@
 import { ScraperInterface } from "./scraperInterface";
+import { storeCategory } from "./constants/storeCategory.js";
+import { storeCollection } from "./constants/storeCollection.js";
+import store from "app-store-scraper";
 
-ScraperInterface
 export class AppStore extends ScraperInterface {
     async listApps({
       selectedCollection,
