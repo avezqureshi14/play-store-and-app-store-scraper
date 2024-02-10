@@ -1,7 +1,5 @@
-import store from "app-store-scraper";
 import gplay from "google-play-scraper";
 import { Actor } from "apify";
-import { storeCategory } from "./constants/storeCategory.js";
 import { gplayCategory } from "./constants/gplayCategory.js";
 import {
   APP_STORE,
@@ -11,10 +9,9 @@ import {
   LIST_DEVELOPER_APPS,
 } from "./constants/actionTypes.js";
 import { logError } from "./utility/logError.js";
-import { storeCollection } from "./constants/storeCollection.js";
 import { countries } from "./constants/countries.js";
-import { ScraperInterface } from "./scraperInterface.js";
-import { AppStore } from "./AppStoreScraper.js";
+import { ScraperInterface } from "./scrappers/scraperInterface.js";
+import { AppStore } from "./scrappers/AppStoreScraper.js";
 
 // This is Implementation for Google Play
 class GooglePlayStore extends ScraperInterface {
