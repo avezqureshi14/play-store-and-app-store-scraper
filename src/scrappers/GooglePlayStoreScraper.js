@@ -1,7 +1,6 @@
-import { gplayCategory } from "./constants/gplayCategory.js";
 import { ScraperInterface } from "./scraperInterface.js";
 import { countries } from "../constants/countries.js";
-
+import { gplayCategory } from "../constants/gplayCategory.js"
 export class GooglePlayStore extends ScraperInterface {
     async listApps({
       selectedCollection,

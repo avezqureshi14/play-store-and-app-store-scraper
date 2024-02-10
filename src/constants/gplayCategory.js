@@ -30,5 +30,3 @@ export const gplayCategory = {
     GAMES_TRIVIA:"GAME_TRIVIA",
     GAMES_WORD:"GAME_WORD"
 }
-
-console.log(gplayCategory["BUSINESS"]);
