@@ -14,13 +14,7 @@ import { logError } from "./utility/logError.js";
 import { storeCollection } from "./constants/storeCollection.js";
 import { countries } from "./constants/countries.js";
 import { all } from "axios";
-
-// This is Interface for Scraper
-class ScraperInterface {
-  async listApps({ selectedCollection, selectedCategory, num,selectedCountry }) {}
-  async listDeveloperApps({ devId }) {}
-  async getAppDetails({ appId }) {}
-}
+import { ScraperInterface } from "./scraperInterface.js";
 
 // This is Implementation for the App Store
 class AppStore extends ScraperInterface {
@@ -39,7 +33,6 @@ class AppStore extends ScraperInterface {
       collection: appStoreCollection, 
       country:appStoreCountry,
       num,
-      sort:store.sort.RECENT
     });
 
     // Filter apps based on price if needed
