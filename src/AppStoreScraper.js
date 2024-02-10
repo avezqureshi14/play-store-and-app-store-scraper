@@ -1,4 +1,4 @@
-import { ScraperInterface } from "./scraperInterface";
+import { ScraperInterface } from "./scraperInterface.js";
 import { storeCategory } from "./constants/storeCategory.js";
 import { storeCollection } from "./constants/storeCollection.js";
 import store from "app-store-scraper";
