@@ -1,4 +1,4 @@
 export const storeCollection = {
-  TOP_FREE: "topfreeapplications",
-  TOP_PAID: "toppaidapplications",
+  TOP_FREE: 'topfreeapplications',
+  TOP_PAID: 'toppaidapplications',
 };
