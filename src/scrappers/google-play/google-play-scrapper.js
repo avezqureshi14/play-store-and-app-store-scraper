@@ -2,7 +2,7 @@ import { ScraperInterface } from "../scrapper-interface.js";
 import { countries } from "../../constants/countries.js";
 import { gplayCategory } from "./constants/category.js";
 import gplay from "google-play-scraper";
-import { gplaySort } from "../../constants/sort.js";
+import { gplaySort } from "../google-play/constants/sort.js";
 
 export class GooglePlayStore extends ScraperInterface {
   async listApps({
