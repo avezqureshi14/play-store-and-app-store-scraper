@@ -1,9 +1,9 @@
-import { ScraperInterface } from "./scraperInterface.js";
-import { storeCategory } from "../constants/storeCategory.js";
-import { storeCollection } from "../constants/storeCollection.js";
-import { countries } from "../constants/countries.js";
+import { ScraperInterface } from "../scrapper-interface.js";
+import { storeCategory } from "./constants/category.js";
+import { storeCollection } from "./constants/collection.js";
+import { countries } from "../../constants/countries.js";
 import store from "app-store-scraper";
-import { appStoreSort } from "../constants/sort.js";
+import { appStoreSort } from "../app-store/constants/sort.js";
 
 export class AppStore extends ScraperInterface {
     async listApps({

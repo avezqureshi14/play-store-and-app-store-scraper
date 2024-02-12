@@ -1,7 +1,7 @@
 import { Actor } from "apify";
 import { GET_DETAILS,  LIST_APPS, LIST_DEVELOPER_APPS} from "./constants/actionTypes.js";
 import { logError } from "./utility/logError.js";
-import { ScraperFactory } from "./scrappers/ScraperFactory.js";
+import { ScraperFactory } from "./scrappers/scrapper-factory.js";
 
 const runActor = async () => {
   try {
