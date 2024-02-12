@@ -1,8 +1,8 @@
-import { ScraperInterface } from "../scrapper-interface.js";
-import { countries } from "../../constants/countries.js";
-import { gplayCategory } from "./constants/category.js";
-import gplay from "google-play-scraper";
-import { gplaySort } from "../google-play/constants/sort.js";
+import { ScraperInterface } from '../scrapper-interface.js';
+import { countries } from '../../constants/countries.js';
+import { gplayCategory } from './constants/category.js';
+import gplay from 'google-play-scraper';
+import { gplaySort } from '../google-play/constants/sort.js';
 
 export class GooglePlayStore extends ScraperInterface {
   async listApps({
@@ -26,7 +26,7 @@ export class GooglePlayStore extends ScraperInterface {
   }
 
   async listDeveloperApps({ devId }) {
-    throw new Error("This parameter only works for App Store");
+    throw new Error('This parameter only works for App Store');
   }
 
   async getAppDetails({ appId }) {
