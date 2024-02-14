@@ -1,9 +1,9 @@
-import { ScraperInterface } from '../scrapper-interface.js';
-import { storeCategory } from './constants/category.js';
-import { storeCollection } from './constants/collection.js';
-import { countries } from '../../constants/countries.js';
-import store from 'app-store-scraper';
-import { appStoreSort } from '../app-store/constants/sort.js';
+import { ScraperInterface } from "../scrapper-interface.js";
+import { storeCategory } from "./constants/category.js";
+import { storeCollection } from "./constants/collection.js";
+import { countries } from "../../constants/countries.js";
+import store from "app-store-scraper";
+import { appStoreSort } from "../app-store/constants/sort.js";
 
 export class AppStore extends ScraperInterface {
   async listApps({
@@ -34,6 +34,6 @@ export class AppStore extends ScraperInterface {
   }
 
   async getAppDetails({ appId }) {
-    return await store.app({ appId });
+    return await store.app({ id: appId });
   }
 }
