@@ -20,7 +20,6 @@ Imagine a world where scraping app data becomes a breeze, backed by modular, rob
 
 ### Join our community, explore the possibilities, and contribute!
 
-🌐 [Documentation](Link to Documentation) 📚  
 🛠 [GitHub Repository](https://github.com/avezqureshi14/play-store-scraper/) 💻
 
 Let's revolutionize the way we scrape app data! 🚀✨ Share, fork, and let's make UniScrape the go-to tool for every developer out there!
