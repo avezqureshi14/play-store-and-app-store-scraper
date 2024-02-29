@@ -12,7 +12,8 @@
         "axios": "^1.5.0",
         "cheerio": "^1.0.0-rc.12",
         "express": "^4.18.2",
-        "google-play-scraper": "^10.0.0"
+        "google-play-scraper": "^10.0.0",
+        "memoizee": "^0.4.15"
     },
     "scripts": {
         "start": "node ./src/main.js",
