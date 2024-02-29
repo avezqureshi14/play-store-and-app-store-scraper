@@ -2,9 +2,17 @@ import { ScraperInterface } from '../scrapper-interface.js';
 import { countries } from '../../constants/countries.js';
 import { gplayCategory } from './constants/category.js';
 import gplay from 'google-play-scraper';
-import { gplaySort } from '../google-play/constants/sort.js';
+
+const { memoized } = require('google-play-scraper'); // Import memoized from google-play-scraper
 
 export class GooglePlayStore extends ScraperInterface {
+  constructor() {
+    super();
+    // Create memoized versions of functions
+    this.memoizedListApps = memoized(this.listApps.bind(this));
+    this.memoizedGetAppDetails = memoized(this.getAppDetails.bind(this));
+  }
+
   async listApps({
     selectedCollection,
     selectedCategory,
@@ -15,14 +23,13 @@ export class GooglePlayStore extends ScraperInterface {
     const playStoreCollection = selectedCollection;
     const playStoreCountry = countries[selectedCountry];
     const sort = gplaySort[selectedSort];
-    const allApps = gplay.list({
+
+    return await this.memoizedListApps({
       category: playStoreCategory,
       collection: playStoreCollection,
       country: playStoreCountry,
-      sort: sort,
+      sort,
     });
-
-    return allApps;
   }
 
   async listDeveloperApps({ devId }) {
@@ -30,6 +37,6 @@ export class GooglePlayStore extends ScraperInterface {
   }
 
   async getAppDetails({ appId }) {
-    return await gplay.app({ appId });
+    return await this.memoizedGetAppDetails({ appId });
   }
 }
