@@ -1,16 +1,15 @@
-import { ScraperInterface } from '../scrapper-interface.js';
-import { countries } from '../../constants/countries.js';
-import { gplayCategory } from './constants/category.js';
-import {memoized} from 'google-play-scraper';
-
-// const { memoized } = require('google-play-scraper'); // Import memoized from google-play-scraper
+import { memoized as m } from "google-play-scraper";
+import { ScraperInterface } from "../scrapper-interface.js";
+import { countries } from "../../constants/countries.js";
+import { gplayCategory } from "./constants/category.js";
 
 export class GooglePlayStore extends ScraperInterface {
   constructor() {
     super();
-    // Create memoized versions of functions
-    this.memoizedListApps = memoized(this.listApps.bind(this));
-    this.memoizedGetAppDetails = memoized(this.getAppDetails.bind(this));
+    
+    // Create memoized versions of functions with default options
+    this.memoizedListApps = m();
+    this.memoizedGetAppDetails = m();
   }
 
   async listApps({
@@ -33,7 +32,7 @@ export class GooglePlayStore extends ScraperInterface {
   }
 
   async listDeveloperApps({ devId }) {
-    throw new Error('This parameter only works for App Store');
+    throw new Error("This parameter only works for App Store");
   }
 
   async getAppDetails({ appId }) {
