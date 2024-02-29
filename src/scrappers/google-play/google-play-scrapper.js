@@ -1,9 +1,9 @@
 import { ScraperInterface } from '../scrapper-interface.js';
 import { countries } from '../../constants/countries.js';
 import { gplayCategory } from './constants/category.js';
-import gplay from 'google-play-scraper';
+import {memoized} from 'google-play-scraper';
 
-const { memoized } = require('google-play-scraper'); // Import memoized from google-play-scraper
+// const { memoized } = require('google-play-scraper'); // Import memoized from google-play-scraper
 
 export class GooglePlayStore extends ScraperInterface {
   constructor() {
