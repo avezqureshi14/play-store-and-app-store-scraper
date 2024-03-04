@@ -56,7 +56,7 @@ export class GooglePlayStore extends ScraperInterface {
       sort: gplaySortValue,
       num: numReviews,
     })
-    console.log(reviews[0]);
+    console.log(reviews);
     
     return reviews;
   }
