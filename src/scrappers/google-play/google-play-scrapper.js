@@ -57,7 +57,7 @@ export class GooglePlayStore extends ScraperInterface {
       num: numReviews,
     })
 
-    if(reviews.data.score > 5){
+    if(reviews?.data?.score > 5){
       console.log(reviews.data)
     }
     return reviews;
