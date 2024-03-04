@@ -331,7 +331,7 @@
     "numReviewsPages": {
       "title": "No. of Reviews (GOOGLE_PLAY) or No. of Pages (APP_STORE)",
       "type": "integer",
-      "description": "Enter the number of reviews to be fetched",
+      "description": "max reviews : 3000 or max pages : 10",
       "editor": "number",
       "prefill": 10
     },
