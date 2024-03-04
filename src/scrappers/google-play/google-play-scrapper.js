@@ -4,7 +4,6 @@ import { countries } from '../../constants/countries.js';
 import { gplayCategory } from './constants/category.js';
 import gplay from 'google-play-scraper';
 import { gplaySort } from '../google-play/constants/sort.js';
-import { gplayReviews } from './constants/reviews.js';
 import { mapToGPlaySortValue } from './constants/helper-gplay.js';
 
 export class GooglePlayStore extends ScraperInterface {
