@@ -317,6 +317,17 @@
       ],
       "default": "RECENT"
     },
+    "reviewType": {
+      "title": "Type of Reviews (Below 3 rating it is a bad review and above 4 it is good review)",
+      "type": "string",
+      "description": "Review Type",
+      "editor": "select",
+      "enum": [
+        "GOOD",
+        "BAD"
+      ],
+      "default": "GOOD"
+    },
     "numReviews": {
       "title": "Number of Reviews",
       "type": "integer",
