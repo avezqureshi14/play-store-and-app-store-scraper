@@ -19,7 +19,7 @@ export class GooglePlayStore extends ScraperInterface {
     });
   }
 
-  listApps({
+  async listApps({
     selectedCollection,
     selectedCategory,
     selectedCountry,
@@ -38,25 +38,25 @@ export class GooglePlayStore extends ScraperInterface {
     });
   }
 
-  listDeveloperApps({ devId }) {
+  async listDeveloperApps({ devId }) {
     throw new Error('This parameter only works for App Store');
   }
 
-  getAppDetails({ appId }) {
+  async getAppDetails({ appId }) {
     return gplay.app({ appId });
   }
 
-  getReviews({ appId, sortReviewsBy, numReviews }) {
-    const playStoreReviewSort = gplayReviews[sortReviewsBy];
+  async getReviews({ appId, sortReviewsBy, numReviews }) {
   
     // Map playStoreReviewSort to the corresponding gplay sort value
     const gplaySortValue = mapToGPlaySortValue(sortReviewsBy);
-  
-    return gplay.reviews({
+    const reviews = gplay.reviews({
       appId: appId,
       sort: gplaySortValue,
       num: numReviews,
     });
+    console.log(reviews);
+    return reviews; 
   }
   
   
