@@ -4,6 +4,7 @@ import { countries } from '../../constants/countries.js';
 import { gplayCategory } from './constants/category.js';
 import gplay from 'google-play-scraper';
 import { gplaySort } from '../google-play/constants/sort.js';
+import { gplayReviews } from './constants/reviews.js';
 
 export class GooglePlayStore extends ScraperInterface {
   constructor() {
@@ -42,5 +43,14 @@ export class GooglePlayStore extends ScraperInterface {
 
   getAppDetails({ appId }) {
     return gplay.app({ appId });
+  }
+
+  getReviews({ appId, sortReviewsBy, numReviews }) {
+    const playStoreReviewSort = gplayReviews[sortReviewsBy];
+    return gplay.reviews({
+      appId: appId,
+      sort: playStoreReviewSort,
+      num: numReviews
+    })
   }
 }

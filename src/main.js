@@ -1,6 +1,7 @@
 import { Actor } from 'apify';
 import {
   GET_DETAILS,
+  GET_REVIEWS,
   LIST_APPS,
   LIST_DEVELOPER_APPS
 } from './constants/actionTypes.js';
@@ -28,6 +29,11 @@ const runActor = async () => {
       case GET_DETAILS: {
         const appDetails = await storeInstance.getAppDetails(input);
         await Actor.pushData(appDetails);
+        break;
+      }
+      case GET_REVIEWS: {
+        const reviews = await storeInstance.getReviews(input);
+        await Actor.pushData(reviews);
         break;
       }
       default: {

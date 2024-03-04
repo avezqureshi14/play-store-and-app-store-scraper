@@ -8,7 +8,11 @@
       "type": "string",
       "description": "Specify the action to perform, How do you want to Scrap the Data?",
       "editor": "select",
-      "enum": ["LIST_APPS", "LIST_DEVELOPER_APPS", "GET_DETAILS"],
+      "enum": [
+        "LIST_APPS",
+        "LIST_DEVELOPER_APPS",
+        "GET_DETAILS"
+      ],
       "default": "LIST_APPS"
     },
     "platform": {
@@ -16,7 +20,10 @@
       "type": "string",
       "description": "Choose the Platform needed to be scrapped",
       "editor": "select",
-      "enum": ["GOOGLE_PLAY", "APP_STORE"],
+      "enum": [
+        "GOOGLE_PLAY",
+        "APP_STORE"
+      ],
       "default": "GOOGLE_PLAY"
     },
     "appId": {
@@ -76,10 +83,12 @@
       "type": "string",
       "description": "Choose  Collection of App ",
       "editor": "select",
-      "enum": ["TOP_FREE", "TOP_PAID"],
+      "enum": [
+        "TOP_FREE",
+        "TOP_PAID"
+      ],
       "default": "TOP_FREE"
     },
-
     "selectedCountry": {
       "title": "Choose Country  (Works only if action choosen is  LIST_APPS)",
       "type": "string",
@@ -289,8 +298,30 @@
       "type": "string",
       "description": "Sort",
       "editor": "select",
-      "enum": ["RECENT", "HELPFUL"],
+      "enum": [
+        "RECENT",
+        "HELPFUL"
+      ],
       "default": "RECENT"
+    },
+    "sortReviewsBy": {
+      "title": "Sort Reviews",
+      "type": "string",
+      "description": "Sort",
+      "editor": "select",
+      "enum": [
+        "RECENT",
+        "HELPFUL",
+        "RATING"
+      ],
+      "default": "RECENT"
+    },
+    "numReviews": {
+      "title": "Number of Reviews",
+      "type": "integer",
+      "description": "Enter the number of reviews to be fetched",
+      "editor": "number",
+      "prefill": 10
     },
     "limit": {
       "title": "Number of results",
@@ -300,5 +331,7 @@
       "prefill": 10
     }
   },
-  "required": ["action"]
+  "required": [
+    "action"
+  ]
 }
