@@ -49,13 +49,13 @@ export class AppStore extends ScraperInterface {
     return await store.app({ id: appId });
   }
 
-  getReviews({ appId, sortReviewsBy, numReviews }) {
+  getReviews({ appId, sortReviewsBy, numReviewsPages }) {
     // Map playStoreReviewSort to the corresponding store sort value
     const storeSortValue = mapToStoreSortValue(sortReviewsBy);  
     return store.reviews({
       id: appId,
       sort: storeSortValue,
-      num: numReviews,
+      page: numReviewsPages,
     });
   }
 }
