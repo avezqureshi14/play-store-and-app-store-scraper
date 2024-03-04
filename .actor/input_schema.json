@@ -318,7 +318,7 @@
       "default": "RECENT"
     },
     "reviewType": {
-      "title": "Type of Reviews (Below 3 rating it is a bad review and above 4 it is good review)",
+      "title": "Type of Reviews (if rating is below 3 it is considered as a bad review and above 4 is considered as good review)",
       "type": "string",
       "description": "Review Type",
       "editor": "select",
