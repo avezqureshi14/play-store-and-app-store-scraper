@@ -56,7 +56,7 @@ export class GooglePlayStore extends ScraperInterface {
       sort: gplaySortValue,
       num: numReviews,
     })
-
+    console.log(reviews?.data?.score);
     if(reviews?.data?.score > 5){
       console.log(reviews.data)
     }
