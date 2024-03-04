@@ -34,11 +34,8 @@ const runActor = async () => {
       case GET_REVIEWS: {
         const { reviewType } = input;
         let reviews = await storeInstance.getReviews(input);
-
-        if (reviewType === "GOOD") {
-          reviews = reviews?.data.filter(item => item?.score >= 4 || item?.score <= 3);
-          await Actor.pushData(reviews);
-        }
+        reviewType === "GOOD" ? reviews?.data.filter(item => item?.score >= 4) : reviews?.data.filter(item => item?.score <= 3);
+        await Actor.pushData(reviews);
         break;
       }
       default: {
