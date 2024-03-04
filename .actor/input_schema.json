@@ -11,7 +11,8 @@
       "enum": [
         "LIST_APPS",
         "LIST_DEVELOPER_APPS",
-        "GET_DETAILS"
+        "GET_DETAILS",
+        "GET_REVIEWS"
       ],
       "default": "LIST_APPS"
     },
