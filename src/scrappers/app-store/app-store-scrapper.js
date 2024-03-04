@@ -5,6 +5,7 @@ import { storeCollection } from './constants/collection.js';
 import { countries } from '../../constants/countries.js';
 import store from 'app-store-scraper';
 import { appStoreSort } from '../app-store/constants/sort.js';
+import { mapToStoreSortValue } from './constants/helper.js';
 
 export class AppStore extends ScraperInterface {
   constructor() {
@@ -50,8 +51,7 @@ export class AppStore extends ScraperInterface {
 
   getReviews({ appId, sortReviewsBy, numReviews }) {
     // Map playStoreReviewSort to the corresponding store sort value
-    const storeSortValue = sortReviewsBy ;
-  
+    const storeSortValue = mapToStoreSortValue(sortReviewsBy);  
     return store.reviews({
       appId: appId,
       sort: storeSortValue,
