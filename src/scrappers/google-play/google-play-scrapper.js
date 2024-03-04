@@ -49,7 +49,7 @@ export class GooglePlayStore extends ScraperInterface {
     const playStoreReviewSort = gplayReviews[sortReviewsBy];
     return gplay.reviews({
       appId: appId,
-      sort: playStoreReviewSort,
+      sort: gplay.sort.RATING,
       num: numReviews
     })
   }
