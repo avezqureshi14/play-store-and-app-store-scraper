@@ -329,9 +329,9 @@
       "default": "GOOD"
     },
     "numReviewsPages": {
-      "title": "No. of Reviews (GOOGLE_PLAY) or No. of Pages (APP_STORE)",
+      "title": "Enter No. of Reviews for GOOGLE_PLAY (max: 3000) or Enter No. of Pages for APP_STORE (max : 10)",
       "type": "integer",
-      "description": "max reviews : 3000 or max pages : 10",
+      "description": "Enter No. of Reviews for GOOGLE_PLAY (max: 3000) or Enter No. of Pages for APP_STORE (max : 10)",
       "editor": "number",
       "prefill": 10
     },
