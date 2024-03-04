@@ -34,6 +34,7 @@ const runActor = async () => {
       case GET_REVIEWS: {
         const reviews = await storeInstance.getReviews(input);
         reviews?.data.map((item,index)=>{
+          if(item.score >= 4 )
           console.log(item.score);
         });
         await Actor.pushData(reviews);
