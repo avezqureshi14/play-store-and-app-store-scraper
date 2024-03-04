@@ -5,6 +5,7 @@ import { gplayCategory } from './constants/category.js';
 import gplay from 'google-play-scraper';
 import { gplaySort } from '../google-play/constants/sort.js';
 import { gplayReviews } from './constants/reviews.js';
+import { mapToGPlaySortValue } from '../../utility/helper-gplay.js';
 
 export class GooglePlayStore extends ScraperInterface {
   constructor() {
@@ -47,10 +48,18 @@ export class GooglePlayStore extends ScraperInterface {
 
   getReviews({ appId, sortReviewsBy, numReviews }) {
     const playStoreReviewSort = gplayReviews[sortReviewsBy];
+  
+    // Map playStoreReviewSort to the corresponding gplay sort value
+    const gplaySortValue = mapToGPlaySortValue(playStoreReviewSort);
+  
     return gplay.reviews({
       appId: appId,
-      sort: gplay.sort.RATING,
-      num: numReviews
-    })
+      sort: gplaySortValue,
+      num: numReviews,
+    });
   }
+  
+  // Helper function to map review sort to gplay sort
+  
+  
 }
