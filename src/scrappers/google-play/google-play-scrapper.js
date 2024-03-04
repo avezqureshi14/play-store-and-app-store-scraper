@@ -50,7 +50,7 @@ export class GooglePlayStore extends ScraperInterface {
     const playStoreReviewSort = gplayReviews[sortReviewsBy];
   
     // Map playStoreReviewSort to the corresponding gplay sort value
-    const gplaySortValue = mapToGPlaySortValue(playStoreReviewSort);
+    const gplaySortValue = mapToGPlaySortValue(sortReviewsBy);
   
     return gplay.reviews({
       appId: appId,
