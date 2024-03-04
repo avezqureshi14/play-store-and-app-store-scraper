@@ -2,6 +2,7 @@ import { Actor } from 'apify';
 import {
   GET_DETAILS,
   GET_REVIEWS,
+  GOOGLE_PLAY,
   LIST_APPS,
   LIST_DEVELOPER_APPS
 } from './constants/actionTypes.js';
@@ -34,7 +35,11 @@ const runActor = async () => {
       case GET_REVIEWS: {
         const { platform, reviewType } = input;
         let reviews = await storeInstance.getReviews(input);
-        reviewType === "GOOD" ? reviews = reviews?.data.filter(item => item?.score >= 4 ) : reviews = reviews?.data.filter(item => item?.score <= 3);
+        if (platform === GOOGLE_PLAY) {
+          reviewType === "GOOD" ? reviews = reviews?.data.filter(item => item?.score >= 4 ) : reviews = reviews?.data.filter(item => item?.score <= 3);
+        }else{
+          reviewType === "GOOD" ? reviews = reviews?.filter(item => item?.score >= 4 ) : reviews = reviews?.filter(item => item?.score <= 3);
+        }
         await Actor.pushData(reviews);
         break;
       }
