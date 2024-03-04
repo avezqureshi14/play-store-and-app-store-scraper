@@ -33,7 +33,7 @@ const runActor = async () => {
       }
       case GET_REVIEWS: {
         const reviews = await storeInstance.getReviews(input);
-        console.log(reviews);
+        console.log({reviews}?.data?.score);
         await Actor.pushData(reviews);
         break;
       }
